@@ -16,11 +16,18 @@
 <body>
     <div class="container">
         <div class="contentContainer">
-            <div class="welcome">Welcome to StarBucks</div>
+            <div class="welcome">Welcome to StarBucks!!</div>
             Check below if we are available
-            <form method="POST" action="#">
+            <form method="POST" action="/showifopen">
                 <input type="submit" value="Check">
             </form>
+
+            <% if(response.message !='' ) { %>
+                <div class="message">
+                    <div class="emoji"><%= response.emoji %></div>
+                    <%= response.message %>
+                </div>
+            <% } %>
         </div>
         <div class="imageContainer">
             <img src="cup.png" class="cup">
