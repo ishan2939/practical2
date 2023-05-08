@@ -57,7 +57,7 @@ app.post('/showifopen', (req, res) => {
     let response = {};
     let weekDay = EnteredTime.toLocaleDateString('en-US', { weekday: 'short' });//get today's week day in short form (ex. Mon, Fri)
 
-    let showTime = weekDay + ' ' + req.body.time.split('T')[0] + ' | ' + req.body.time.split('T')[1];
+    let showTime = weekDay + ' ' + req.body.time.split('T')[0] + ' | ' + req.body.time.split('T')[1];//to show user time that they have entered on output
     let foundDay = shop_schedule.find((d) => {
         return d.day == weekDay
     });//check if today's day exists in shop'schedule
