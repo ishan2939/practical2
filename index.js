@@ -22,14 +22,14 @@ const shop_schedule = [
         open: '07:00 AM',
         close: '07:00 PM'
     },
-    // {
-    //     day: 'Thu',
-    //     open: '07:00 AM',
-    //     close: '07:00 PM'
-    // },
+    {
+        day: 'Thu',
+        open: '07:00 AM',
+        close: '07:00 PM'
+    },
     {
         day: 'Fri',
-        open: '12:00 AM',
+        open: '7:00 AM',
         close: '7:00 PM'
     }
 ]
@@ -49,31 +49,16 @@ function calculateLeftTime(ms) {//convert milliseconds to hour and minutes
     return message;
 }
 
-app.get('/', (req, res) => {
-    res.render('index', {
-        response: {
-            message: '',
-            emoji: ''
-        }
-    });
-});
+function calculateLeftDays(weekDay){
+    let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-app.post('/showifopen', (req, res) => {
 
-    let EnteredTime = new Date(req.body.time);//get entered date
-    let response = {};
-    let weekDay = EnteredTime.toLocaleDateString('en-US', { weekday: 'short' });//get today's week day in short form (ex. Mon, Fri)
+        let i = days.findIndex((d) => d == weekDay);
 
-    let showTime = weekDay + ' ' + req.body.time.split('T')[0] + ' | ' + req.body.time.split('T')[1];//to show user time that they have entered on output
-
-    let foundDay = shop_schedule.find((d) => {
-        return d.day == weekDay
-    });//check if today's day exists in shop'schedule
-
-    if (foundDay === undefined) {//if it does not
-        let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-        let i = days.findIndex((d) => d == weekDay) + 1;
+        if(i==6)
+            i=0;
+        else
+            i++;
 
         let j = 0, count = 0, flag = false;
         for (i; ;) {
@@ -106,7 +91,31 @@ app.post('/showifopen', (req, res) => {
             total = Math.floor(total % 24);
         }
         let finalmsg = ((count > 0) ? `${count} Days` : '') + ((total > 0) ? ` ${total} hours` : '') + '.';
-        response.message = 'Unfortunately we are closed. The shop will be open after ' + finalmsg;
+}
+
+app.get('/', (req, res) => {
+    res.render('index', {
+        response: {
+            message: '',
+            emoji: ''
+        }
+    });
+});
+
+app.post('/showifopen', (req, res) => {
+
+    let EnteredTime = new Date(req.body.time);//get entered date
+    let response = {};
+    let weekDay = EnteredTime.toLocaleDateString('en-US', { weekday: 'short' });//get today's week day in short form (ex. Mon, Fri)
+
+    let showTime = weekDay + ' ' + req.body.time.split('T')[0] + ' | ' + req.body.time.split('T')[1];//to show user time that they have entered on output
+
+    let foundDay = shop_schedule.find((d) => {
+        return d.day == weekDay
+    });//check if today's day exists in shop'schedule
+
+    if (foundDay === undefined) {//if it does not
+        response.message = 'Unfortunately we are closed. The shop will be open after ' + calculateLeftDays(weekDay);
         response.emoji = '😢';//then store "closed"
     }
     else {
@@ -165,8 +174,10 @@ app.post('/showifopen', (req, res) => {
                 //else then calculate the remaining time in opening
                 if (start >= now)//if we are before the opening time
                     response.message = 'Unfortunately we are closed. The shop will be open after ' + calculateLeftTime(start - now);
-                else//if we are after closing time
+                else{//if we are after closing time
                     response.message = 'Unfortunately we are closed for today.';
+
+                }
 
                 response.emoji = '😢';
             }
