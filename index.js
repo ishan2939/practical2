@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 const shop_schedule = [
     {
         day: 'Mon',
-        open: '07:00 AM',
-        close: '07:00 PM'
+        open: '7:00 AM',
+        close: '7:00 PM'
     },
     {
         day: 'Tue',
@@ -60,16 +60,18 @@ app.get('/', (req, res) => {
 
 app.post('/showifopen', (req, res) => {
 
-    let today = new Date();//get today's date
+    let EnteredTime = new Date(req.body.time);//get entered date
     let response = {};
-    let weekDay = today.toLocaleDateString('en-US', { weekday: 'short' });//get today's week day in short form (ex. Mon, Fri)
+    let weekDay = EnteredTime.toLocaleDateString('en-US', { weekday: 'short' });//get today's week day in short form (ex. Mon, Fri)
+
+    let showTime = weekDay + ' ' + req.body.time.split('T')[0] + ' | ' + req.body.time.split('T')[1];//to show user time that they have entered on output
 
     let foundDay = shop_schedule.find((d) => {
         return d.day == weekDay
     });//check if today's day exists in shop'schedule
 
     if (foundDay === undefined) {//if it does not
-        response.message = 'Unfortunately we are closed.';
+        response.message = 'Unfortunately we are closed on ' + showTime;
         response.emoji = '😢';//then store "closed"
     }
     else {
@@ -92,7 +94,9 @@ app.post('/showifopen', (req, res) => {
 
         let start = ((openTime.hour*60*60) + (openTime.minute*60))*1000;//convert shop's opening time to milliseconds
         let end = ((closeTime.hour*60*60) + (closeTime.minute*60))*1000;//convert shop's closing time to milliseconds
-        let now  = ((today.getHours()*60*60) + (today.getMinutes()*60))*1000;//convert current moments time to milliseconds
+        let now = ((EnteredTime.getHours() * 60 * 60) + (EnteredTime.getMinutes() * 60)) * 1000;//convert current moments time to milliseconds
+
+        console.log(start, end, now);
         
         if(start > end){//check if start is > than end
             //scenario: let's say shop closed at 11 AM and will open at 7 PM then check accordingly
@@ -108,10 +112,10 @@ app.post('/showifopen', (req, res) => {
 
                 if(end >= now)
                 //if we are before closing time(11AM here) then calculate the remaining time in closing
-                    response.message = 'We are open right now. But shop will close within ' + calculateLeftTime(end-now);
+                    response.message = 'We are open. But shop will close within ' + calculateLeftTime(end-now);
                 else if(now >= start)
                 //or after opening time(7PM here) then calculate the remaining in closing time(again choosing closing time as end of the day)
-                    response.message = 'We are open right now. But shop will close within ' + calculateLeftTime(86400000-now);
+                    response.message = 'We are open. But shop will close within ' + calculateLeftTime(86400000-now);
                 
                 response.emoji = '😍';
             }
@@ -121,7 +125,7 @@ app.post('/showifopen', (req, res) => {
             
             if(start <= now && now <= end){
                 //check if we are currently between opening and closing time then calculate the remaining time in closing
-                response.message = 'We are open right now. But shop will close within ' + calculateLeftTime(end-now);
+                response.message = 'We are open. But shop will close within ' + calculateLeftTime(end-now);
                 response.emoji = '😍';
             }
             else{
