@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
 
 app.post('/showifopen', (req, res) => {
 
-    let EnteredTime = new Date(req.body.time);//get today's date
+    let EnteredTime = new Date(req.body.time);//get entered date
     let response = {};
     let weekDay = EnteredTime.toLocaleDateString('en-US', { weekday: 'short' });//get today's week day in short form (ex. Mon, Fri)
 
