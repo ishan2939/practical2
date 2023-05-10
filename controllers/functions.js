@@ -43,11 +43,11 @@ function convertToMills(time) {
 
 
 function convertToHoursMinutes(ms) {    //convert milliseconds to hour and minutes   
-    let hoursLeft = Math.floor((ms / (1000 * 60 * 60)) % 24);
-    let minutesLeft = Math.floor((ms / (1000 * 60)) % 60);
+    let hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+    let minutes = Math.floor((ms / (1000 * 60)) % 60);
     return {
-        hour: hoursLeft,
-        minute: minutesLeft
+        hour: hours,
+        minute: minutes
     }
 }
 
