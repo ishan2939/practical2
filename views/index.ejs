@@ -19,7 +19,7 @@
             <div class="welcome">Welcome to StarBucks!!</div>
             <form method="POST" action="/showifopen">
                 <label for="time">Check below if we are available:</label>
-                <input type="datetime-local" id="time" name="time" required>
+                <input type="datetime-local" id="time" name="time" value="<%= time %>" required>
                 <input type="submit" value="Check">
             </form>
 
