@@ -58,7 +58,7 @@ function getResponse(enteredTime) {
 
         let start = convertToMills(getHoursMinutes(foundDay.open));  //convert shop's opening time to milliseconds
         let end = convertToMills(getHoursMinutes(foundDay.close));  //convert shop's closing time to milliseconds
-        let now = convertToMills({ hour: enteredTime.getHours(), minute: enteredTime.getMinutes() });   //convert current moments time to milliseconds
+        let now = convertToMills({ hour: enteredTime.getHours(), minute: enteredTime.getMinutes() });   //convert entered time to milliseconds
 
         if (start <= now && now <= end) {   //if we are between current and closing time
             response.message = 'YAY! We are open.';
