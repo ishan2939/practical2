@@ -73,7 +73,6 @@ function calculateLeftDays(enteredTime, weekDay) {
             count++;
     }
 
-    //check if start> end then assuming that shop will be open till 12 PM then there are no remaninghours for today
     let now = convertToMills({ hour: enteredTime.getHours(), minute: enteredTime.getMinutes() });   //convert added time to milliseconds
     let leftTimeForToday = convertToHoursMinutes(86400000 - now);   //find remaining time
 
