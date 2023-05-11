@@ -29,8 +29,8 @@ function getHoursMinutes(str) { //take string 7:00 AM and get hours and minutes 
         n = 12;
 
     return {
-        hour: Number(str[0].split(':')[0]) + n,
-        minute: Number(str[0].split(':')[1])
+        hour: parseInt(str[0].split(':')[0]) + n,
+        minute: parseInt(str[0].split(':')[1])
     }   //return hours and minutes
 }
 
