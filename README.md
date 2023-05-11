@@ -22,7 +22,6 @@ The Open and close time may vary based on days. As a user we need to run the scr
 
 - EJS
 - Express
-<br/>
 
 <br/>
 
