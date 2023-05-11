@@ -50,11 +50,11 @@ function getResponse(enteredTime) {
     }); //check if today's day exists in shop'schedule
 
 
-    if (foundDay === undefined) {   //if it does not found it
+    if (foundDay === undefined) {   //if it does not
         response.message = 'Unfortunately we are closed.';
         response.emoji = '😢';  //then store "closed"
     }
-    else {
+    else {  //if it does exists
 
         let start = convertToMills(getHoursMinutes(foundDay.open));  //convert shop's opening time to milliseconds
         let end = convertToMills(getHoursMinutes(foundDay.close));  //convert shop's closing time to milliseconds
