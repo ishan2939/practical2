@@ -108,11 +108,11 @@ function getResponse(enteredTime) {
         response.message = 'Unfortunately we are closed. The shop will be open after ' + calculateLeftDays(enteredTime, weekDay);
         response.emoji = '😢';  //then store "closed"
     }
-    else {
+    else {//if it does exists
 
         let start = convertToMills(getHoursMinutes(foundDay.open));  //convert shop's opening time to milliseconds
         let end = convertToMills(getHoursMinutes(foundDay.close));  //convert shop's closing time to milliseconds
-        let now = convertToMills({ hour: enteredTime.getHours(), minute: enteredTime.getMinutes() });   //convert current moments time to milliseconds
+        let now = convertToMills({ hour: enteredTime.getHours(), minute: enteredTime.getMinutes() });   //convert entered time to milliseconds
     
         let time = {};
         let message = '';
@@ -126,8 +126,7 @@ function getResponse(enteredTime) {
             response.message = 'We are open. But shop will close within ' + message;
             response.emoji = '😍';
         }
-        //else then calculate the remaining time in opening
-        else if (start >= now) {//if we are before the opening time
+        else if (start >= now) {//if we are before the opening time then calculate the remaining time in opening
             time = convertToHoursMinutes(start - now);
 
             message = (time.hour != 0 ? `${time.hour} Hours ` : '') + (time.minute != 0 ? `${time.minute} Minutes` : '') + '.';
@@ -135,7 +134,7 @@ function getResponse(enteredTime) {
             response.message = 'Unfortunately we are closed. The shop will be open after ' + message;
             response.emoji = '😢';
         }
-        else {//if we are after closing time
+        else {//if we are after closing time then calculate the remaining time in opening next day
             response.message = 'Unfortunately we are closed for today. The shop will open after ' + calculateLeftDays(enteredTime, weekDay);
             response.emoji = '😢';
         }
