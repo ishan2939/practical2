@@ -1,15 +1,96 @@
+# practical_2
+
+## 📝 Table of Contents
+
+- [AIM](#aim)
+- [Phase](#phase)
+- [Usage](#usage)
+- [Output](#output)
+
+<br/>
+
+## 🏁 AIM <a name = "aim"></a>
+
 Prepare a program, which will tell us the shop open time.
 
-Phase 3: [Addition to the step 1 output]
+Let's say, there is a shop which has it's open and close time.
+The Open and close time may vary based on days. As a user we need to run the script and the script will tell us the status of the Shop.
 
-If shop is closed, when it will be open next time. 
+<br/>
 
-- You need to give the response in Hours if the next open time is within some hours 
+> ### ⛏️ Dependencies
+
+- EJS
+- Express
+
+<br/>
+
+## 🕖 Phase <a name = "phase"></a>
+### Phase 3
+```
+If shop is closed, when it will be open next time.
+
+- You need to give the response in Hours if the next open time is within some hours.
 
 - You need to give the response in Days and Hours, if the next open time is more then a day.
+```
+<br/>
 
-Home Page
+## 🎈 Usage <a name = "usage"></a>
+Clone the repo using below command:<br/>
+<code>$ git clone (web URL)</code><br/>
 
-image.png
+<br/>
 
-if we are before 
+Then open the terminal and run the below command:<br/>
+<code>$ nodemon index.js</code><br/>
+
+<br/>
+
+and then go to "localhost:3000" to see the output.
+<br/>
+
+<br/>
+
+## 🎉 Output <a name = "output"></a>
+
+### Possible outputs
+<pre>
+Output-1  [if Shop is Open]:
+=> Open, The shop will be closed within XYZ Hrs
+
+Output-2 [if the next open time is less than a day]:
+=> Shop is Currently Closed. and it will be open after XYZ Hrs
+
+Output-3 [if the next open time is Grater than a day]:
+=> Shop is Currently Closed. and it will be open after X (Day/Days) and XYZ Hrs
+</pre>
+<br/>
+
+<ol>
+    <li>Home Page</li><br/>
+    <img src="./outputs/home.png"><br/><br/>
+    <li>If entered day exists in shop's schedule</li><br/>
+    <ul>
+        <li>If entered time is before opening time:</li><br/>
+        <img src="./outputs/output1.png"><br/><br/>
+        <li>If shop is open on entered time:</li><br/>
+        <img src="./outputs/output2.png"><br/><br/>
+        <li>If entered time is after closing time:</li><br/>
+        <ul>
+            <li>If time is in hours</li><br/>
+            <img src="./outputs/output3.png"><br/><br/>
+            <li>If time is in days</li><br/>
+            <img src="./outputs/output4.png"><br/><br/>
+        </ul>
+    </ul>
+    <li>If entered day does not exist in shop's schedule</li><br/>
+    <ul>
+        <li>If next day exists in schedule</li><br/>
+        <img src="./outputs/output5.png"><br/><br/>
+        <li>If next day doesn't exists in schedule</li><br/>
+        <img src="./outputs/output6.png"><br/><br/>
+    </ul>
+</ol>
+
+***
